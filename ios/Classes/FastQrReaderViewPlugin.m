@@ -104,9 +104,7 @@ AVCaptureMetadataOutputObjectsDelegate>
         *error = localError;
         return nil;
     }
-    CMVideoDimensions dimensions =
-    CMVideoFormatDescriptionGetDimensions([[_captureDevice activeFormat] formatDescription]);
-    _previewSize = CGSizeMake(dimensions.width, dimensions.height);
+
     
     _captureVideoOutput = [AVCaptureVideoDataOutput new];
     _captureVideoOutput.videoSettings =
@@ -159,7 +157,10 @@ AVCaptureMetadataOutputObjectsDelegate>
         }
     }
     
-    
+    CMVideoDimensions dimensions =
+    CMVideoFormatDescriptionGetDimensions([[_captureDevice activeFormat] formatDescription]);
+    _previewSize = CGSizeMake(dimensions.width, dimensions.height);
+	
     [_captureMetadataOutput setMetadataObjectTypes: reqFormats];
     [_captureMetadataOutput setMetadataObjectsDelegate:self queue:dispatchQueue];
     
